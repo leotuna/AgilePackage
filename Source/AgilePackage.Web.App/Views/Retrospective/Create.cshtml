@@ -1,0 +1,34 @@
+﻿@model AgilePackage.Web.App.Dtos.CreateRetrospectiveDto
+@{
+    ViewData["Title"] = "Create - Retrospectives - Agile Package";
+    var projectId = ViewContext.RouteData.Values["projectId"].ToString();
+}
+<div class="container">
+    <div class="row justify-content-start mb-2">
+        <div class="col-auto">
+            <p class="font-size-sm">
+                <a asp-action="Index" asp-route-projectId="@Model.ProjectId" class="link--no-decoration"><i class="fas fa-chevron-left"></i> Retrospectives</a>
+            </p>
+        </div>
+    </div>
+    <div class="row justify-content-start mb-3">
+        <div class="col-12">
+            <h1 class="font-special font-weight-normal font-size-xlg">
+                Create a fresh new retrospective
+            </h1>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-12">
+            <div class="box">
+                <form asp-action="Create" asp-route-projectId="@Model.ProjectId" method="post">
+                    <div class="form-group form-group--full-width">
+                        <label>The retrospective title</label>
+                        <input asp-for="Title" required autofocus />
+                    </div>
+                    <button class="btn" type="submit">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<partial name="_head" />
+<body>
+    <partial name="_gtmNoScript" />
+    <header>
+        <nav>
+            <div class="container">
+                <div class="row justify-content-between flex-nowrap align-items-center mb-5 mt-2">
+                    <div class="col-auto pr-0">
+                        <a id="navbar-title" class="nav-title" href="/">
+                            Agile Package
+                        </a>
+                    </div>
+                    @if (User?.Identity?.IsAuthenticated == true)
+                    {
+                        <div class="col-auto">
+                            <div class="quebab-container">
+                                <div class="quebab-opener font-size-sm" onclick="openQuebabMenu('header')">
+                                    🙂
+                                </div>
+                                <div class="box quebab" id="quebab-menu-header">
+                                    <div class="row mb-2">
+                                        <div class="col-12">
+                                            <a class="link" asp-controller="Invite" asp-action="Index">
+                                                Invites
+                                            </a>
+                                        </div>
+                                    </div>
+@*                                    <div class="row mb-2">
+                                        <div class="col-12">
+                                            <a class="link" asp-controller="Subscription" asp-action="Portal">
+                                                Subscription
+                                            </a>
+                                        </div>
+                                    </div>*@
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <a class="link" asp-controller="Auth" asp-action="LogOut">
+                                                Log out
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </nav>
+    </header>
+    @RenderBody()
+    <partial name="_footer" />
+</body>
+</html>

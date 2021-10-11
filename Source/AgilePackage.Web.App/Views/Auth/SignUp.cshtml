@@ -1,0 +1,55 @@
+﻿@model AgilePackage.Web.App.ViewModels.SignUpDto
+@{
+    ViewData["Title"] = "Sign up - Agile Package";
+}
+<div class="container">
+    <div class="main">
+        <div class="row justify-content-center mb-3">
+            <div class="col">
+                <h1 class="font-size-xlg font-weight-normal text-align-center font-special">
+                    Create an account
+                </h1>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col">
+                <div class="box">
+                    <form method="post">
+                        <div class="form-group form-group--full-width">
+                            <label>Your name</label>
+                            <input type="text" asp-for="Name" autofocus required />
+                        </div>
+                        <div class="form-group form-group--full-width">
+                            <label>Your email</label>
+                            <input type="email" asp-for="Email" required />
+                        </div>
+                        <div class="form-group form-group--full-width">
+                            <label>Your password</label>
+                            <input type="password" asp-for="Password"  id="password" required />
+                            <div>
+                                <span class="badge badge-secondary" id="password-validator-ui-uppercase">uppercase</span>
+                                <span class="badge badge-secondary" id="password-validator-ui-lowercase">lowercase</span>
+                                <span class="badge badge-secondary" id="password-validator-ui-number">number</span>
+                                <span class="badge badge-secondary" id="password-validator-ui-characters">8 characters</span>
+                            </div>
+                        </div>
+                        <div class="form-group form-group--full-width">
+                            <button class="btn btn--full-width" type="submit">Sign up</button>
+                        </div>
+                        <a class="link--no-decoration" asp-action="SignIn">
+                            I already have an account
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .main {
+        max-width: 350px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+</style>
+<script src="~/js/password-validator.js"></script>

@@ -1,0 +1,154 @@
+﻿@model AgilePackage.Web.App.Dtos.RoomDto;
+@{
+    Layout = "_PokerLayout";
+    var room = ViewContext.RouteData.Values["room"].ToString().ToLower();
+    ViewData["Title"] = $"/{room} - Room - Planning Poker - Agile Package";
+    var fibonacci = new List<int> { 1, 2, 3, 5, 8, 13, 20 };
+}
+<div class="container">
+    <div id="cards-container" class="row cards">
+    </div>
+</div>
+<div class="votator-container">
+    <div class="votator">
+        @foreach (var item in fibonacci)
+        {
+            <div class="box box--transparent vote no-select" onclick="client.vote(@item)">
+                @item
+            </div>
+        }
+    </div>
+    <div id="votator-reset-button">
+        <button type="button" onclick="client.reset()" class="font-size-md no-select">Reset</button>
+    </div>
+</div>
+
+<script>
+    class WebSocketClient {
+        constructor() {
+            this.mount();
+        }
+
+        votes = [];
+
+        connection = undefined;
+
+        userName = "@Model.User";
+
+        room = "@room";
+
+        currentUserHasVoted = false;
+
+        mount() {
+            const baseUrl = window.location.origin;
+            if (!baseUrl) {
+                throw new Error();
+            }
+
+            const url = `${baseUrl}/signalr/poker`;
+
+            this.connection = new signalR.HubConnectionBuilder().withUrl(url).build();
+
+            this.connection.on("Vote", (votes) => {
+                this.votes = votes;
+                this.writeCardsToScreen();
+                toast.success("New vote")
+            });
+
+            this.connection.on("Reset", (votes) => {
+                this.votes = votes;
+                this.writeCardsToScreen();
+                toast.success("Game was reseted")
+            });
+
+            this.connection.on("AddToGroup", (votes) => {
+                this.votes = votes;
+                this.writeCardsToScreen();
+                toast.success("New member is in the room")
+            });
+
+            this.connection.start().then(() => {
+                this.connection.invoke("AddToGroup", this.room, this.userName);
+            }).catch((err) => {
+                this.error = true;
+            });
+        }
+
+        vote(value) {
+            this.connection.invoke("Vote", value);
+        }
+
+        reset() {
+            this.connection.invoke("Reset", this.room);
+        }
+
+        writeCardsToScreen() {
+            const element = document.getElementById("cards-container");
+
+            const elements = this.votes.map(vote => {
+
+                let result = "";
+
+                const canShowVotes = this.verifyVotes()
+
+                if (canShowVotes) {
+                    result = vote.vote ? vote.vote : "?"
+                } else {
+                    result = vote.vote ? "<i class='fas fa-check color--success'></i>" : "<i class='fas fa-question'></i>"
+                }
+
+                return (
+                    `<div class="col-lg-3 col-md-4 col-sm-6 col-6 d-flex justify-content-center mb-5">
+                        <div class="box box--vote">
+                            <div class="container">
+                                <div class="row justify-content-center mb-1">
+                                    <div class="col-auto">
+                                        <h3 class="font-size-md font-weight-normal">
+                                            ${vote.name}
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-auto">
+                                        <p class="font-size-xlg">
+                                            ${result}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
+                );
+            });
+
+            const child = elements.join("");
+
+            element.innerHTML = child;
+        }
+
+        verifyVotes() {
+            const someoneDidNotVote = this.votes.some(x => !x.vote);
+            if (someoneDidNotVote) {
+                return false;
+            }
+            return true;
+        }
+    }
+
+    const client = new WebSocketClient();
+</script>
+
+<script>
+    const copyToClipboard = str => {
+        const el = document.createElement('textarea');
+        el.value = str;
+        el.setAttribute('readonly', '');
+        el.style.position = 'absolute';
+        el.style.left = '-9999px';
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        toast.success("Url copied to clipboard");
+    };
+</script>

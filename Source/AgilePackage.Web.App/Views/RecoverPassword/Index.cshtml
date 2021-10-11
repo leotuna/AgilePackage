@@ -1,0 +1,40 @@
+﻿@model AgilePackage.Web.App.ViewModels.RecoverPasswordDto 
+@{
+    ViewData["Title"] = "Password recovery - Agile Package";
+}
+<div class="container">
+    <div class="main">
+        <div class="row justify-content-center mb-3">
+            <div class="col">
+                <h1 class="font-size-xlg font-weight-normal text-align-center font-special">
+                    Recover your password
+                </h1>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col">
+                <div class="box">
+                    <form method="post">
+                        <div class="form-group form-group--full-width">
+                            <label>Your email</label>
+                            <input type="email" asp-for="Email" autofocus required />
+                        </div>
+                        <div class="form-group form-group--full-width">
+                            <button class="btn btn--full-width" type="submit">Recover</button>
+                        </div>
+                        <a class="link--no-decoration" asp-controller="Auth" asp-action="SignIn">
+                            Go back
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .main {
+        max-width: 350px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+</style>

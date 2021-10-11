@@ -1,0 +1,26 @@
+﻿@model AgilePackage.Web.App.ViewModels.SessionRedirectViewModel
+@{
+    ViewData["Title"] = "Success - Subscription - Agile Package";
+}
+
+<div class="row justify-content-center mb-3">
+    <div class="col-auto">
+        <h1 class="text-align-center font-special font-size-xlg font-weight-normal">
+            Subscription completed!
+        </h1>
+    </div>
+</div>
+<div class="row justify-content-center mb-5">
+    <div class="col-auto">
+        <p class="text-align-center font-special font-size-lg">
+            You can now enjoy Agile Package at its fullest
+        </p>
+    </div>
+</div>
+<div class="row justify-content-center">
+    <div class="col-auto">
+        <a class="btn" asp-controller="Project" asp-action="Index" rel="noreferrer">
+            Let’s see
+        </a>
+    </div>
+</div>

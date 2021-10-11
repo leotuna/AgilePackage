@@ -1,0 +1,50 @@
+﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
+@{
+    var room = ViewContext.RouteData.Values["room"]?.ToString().ToLower();
+    var baseUrl = Configuration["Urls:App"];
+}
+<!DOCTYPE html>
+<html lang="en">
+<partial name="_head" />
+<body>
+    <partial name="_gtmNoScript" />
+    <header>
+        <nav>
+            <div class="container">
+                <div class="row justify-content-between flex-nowrap align-items-center mb-5 mt-2">
+                    <div class="col-auto pr-0">
+                        <a id="navbar-title" class="nav-title" href="/">
+                            Agile Package
+                        </a>
+                    </div>
+                    <div class="col-auto">
+                        <div class="row">
+                            <div class="col-auto pr-0">
+                                <div class="box box--minimal">
+                                    <span>
+                                        /@room
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-auto pr-0 padding-left">
+                                <div class="box box--minimal cursor-pointer" onclick="copyToClipboard('@baseUrl/poker-plannings/@room')">
+                                    <i class="fas fa-share-alt"></i>
+                                </div>
+                            </div>
+                            <div class="col-auto padding-left">
+                                <a asp-action="Bye" asp-route-room="@room" class="color--danger link--no-decoration">
+                                    <div class="box box--minimal cursor-pointer">
+                                        <i class="fas fa-power-off"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    @RenderBody()
+    <partial name="_footer" />
+</body>
+</html>

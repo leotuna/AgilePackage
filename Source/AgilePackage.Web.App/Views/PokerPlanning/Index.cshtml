@@ -1,0 +1,40 @@
+﻿@model AgilePackage.Web.App.Models.VisitantUser;
+@{
+    ViewData["Title"] = "Log in - Planning Poker - Agile Package";
+    var room = Context.Request.Query["room"];
+}
+<div class="container">
+    <div class="main">
+        <div class="row justify-content-center mb-3">
+            <div class="col">
+                <h1 class="font-size-xlg font-weight-normal text-align-center font-special">
+                    Welcome
+                </h1>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col">
+                <div class="box">
+                    <form asp-action="Index" asp-route-room="@room" method="post">
+                        <div class="form-group form-group--full-width">
+                            <label>Your name</label>
+                            <input type="text" asp-for="Name" autofocus required />
+                        </div>
+                        <div class="form-group form-group--full-width">
+                            <label>Your email</label>
+                            <input type="email" asp-for="Email" required />
+                        </div>
+                        <button class="btn btn--full-width" type="submit">Go to room</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .main {
+        max-width: 350px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+</style>

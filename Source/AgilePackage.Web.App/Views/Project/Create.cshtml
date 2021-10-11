@@ -1,0 +1,26 @@
+﻿@model AgilePackage.Web.App.Dtos.CreateProjectDto
+@{
+    ViewData["Title"] = "Create - Projects - Agile Package";
+}
+<div class="container">
+    <div class="row justify-content-start mb-2">
+        <div class="col-auto">
+            <p class="font-size-sm">
+                <a asp-action="Index" class="link--no-decoration"><i class="fas fa-chevron-left"></i> Projects</a> / Create
+            </p>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-12">
+            <div class="box">
+                <form asp-action="Create" method="post">
+                    <div class="form-group form-group--full-width">
+                        <label>Project name</label>
+                        <input type="text" asp-for="Name" required autofocus />
+                    </div>
+                    <button class="btn" type="submit">Create project</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

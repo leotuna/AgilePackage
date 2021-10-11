@@ -1,0 +1,151 @@
+﻿@model AgilePackage.Web.App.Dtos.ProjectDetailsDto
+@{
+    ViewData["Title"] = $"{Model.Name} - Projects - Agile Package";
+}
+
+<div class="container">
+    <div class="row justify-content-start mb-2">
+        <div class="col-auto">
+            <p class="font-size-sm">
+                <a asp-action="Index" class="link--no-decoration"><i class="fas fa-chevron-left"></i> Projects</a> / @Model.Name
+            </p>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-12 col-md-6 mb-2">
+            <div class="box">
+                <form asp-controller="ProjectInvite" asp-action="Create" asp-route-projectId="@Model.Id" method="post">
+                    <div class="form-group form-group--full-width">
+                        <label>Who do you want to invite?</label>
+                        <input type="email" asp-for="CreateInvite.ToEmail" />
+                    </div>
+                    <button class="btn" type="submit">Invite</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 mb-2">
+            <div class="box">
+                <div class="row mb-2">
+                    <div class="col">
+                        <h3 class="font-size-sm">
+                            People already on the project
+                        </h3>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    @foreach (var member in Model.Members)
+                    {
+                        <div class="col-auto pr-0 mb-2">
+                            <div class="email-tag">
+                                @if (member.IsAdmin)
+                                {
+                                    <span class="admin-tag">
+                                        <i class="fas fa-crown"></i>
+                                    </span>
+                                }
+                                <div class="d-flex">
+                                    <div class="mr-2">
+                                        @member.Name
+                                    </div>
+                                    <div>
+                                        <div class="quebab-container">
+                                            <i class="fas fa-ellipsis-v" onclick="openQuebabMenu('@member.Id')"></i>
+                                            <div class="box quebab" id="quebab-menu-@member.Id">
+                                                <div class="row mb-2">
+                                                    <div class="col-12">
+                                                        <a class="link" asp-controller="ProjectUser" asp-action="Delete" asp-route-projectId="@Model.Id" asp-route-userId="@member.Id">
+                                                            Remove
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <a class="link" asp-controller="ProjectUser" asp-action="UpdateUserAdmin" asp-route-projectId="@Model.Id" asp-route-userId="@member.Id">
+                                                            @if (member.IsAdmin)
+                                                            {
+                                                                <span>Remove admin</span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>Make admin</span>
+                                                            }
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="row mb-2">
+                    <div class="col">
+                        <h3 class="font-size-sm">
+                            Invited people
+                        </h3>
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    @foreach (var invite in Model.Invites)
+                    {
+                        <div class="col-auto pr-0 mb-2">
+                            <div class="email-tag @(!invite.CanCancel ? "email-tag--disabled" : "")">
+                                <div class="d-flex">
+                                    <div class="mr-2">
+                                        @invite.Email
+                                    </div>
+                                    @if (invite.CanCancel)
+                                    {
+                                        <div>
+                                            <div class="quebab-container">
+                                                <i class="fas fa-ellipsis-v" onclick="openQuebabMenu('@invite.Id')"></i>
+                                                <div class="box quebab" id="quebab-menu-@invite.Id">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <a class="link" asp-controller="ProjectInvite" asp-action="Cancel" asp-route-projectId="@Model.Id" asp-route-inviteId="@invite.Id">
+                                                                Cancel
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.Invites.Count == 0)
+                    {
+                        <div class="col">
+                            <p>No invites created yet</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .email-tag {
+        background-color: #c4c4c4;
+        border-radius: 4px;
+        padding: 8px;
+        font-size: 12px;
+    }
+    .email-tag--disabled {
+        opacity: 0.5;
+    }
+    .admin-tag {
+        position: absolute;
+        top: -8px;
+        left: 4px;
+        background-color: var(--green);
+        color: #ffd43b;
+        padding: 3px;
+        border-radius: 50px;
+    }
+</style>

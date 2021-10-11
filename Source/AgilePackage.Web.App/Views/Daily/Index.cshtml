@@ -1,0 +1,117 @@
+﻿@model AgilePackage.Web.App.ViewModels.DailyViewModel
+@{
+    ViewData["Title"] = $"Dailies - Agile Package";
+}
+<div class="container">
+    <div class="row justify-content-start mb-2">
+        <div class="col-auto">
+            <p class="font-size-sm">
+                <a asp-controller="Project" asp-action="Index" class="link--no-decoration"><i class="fas fa-chevron-left"></i> Projects</a> / Daily
+            </p>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-12 col-md-6 mb-2">
+            <div class="box">
+                <form asp-action="Create" asp-route-projectId="@Model.ProjectId" method="post">
+                    <div class="form-group form-group--full-width">
+                        <label>What did you do yesterday? What will you do today?</label>
+                        <textarea asp-for="Daily" required></textarea>
+                    </div>
+                    <button class="btn" type="submit">Invite</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 mb-2">
+            <div class="row">
+                <div class="col">
+                    <div class="box">
+                        <div class="row mb-3 justify-content-between font-size-sm">
+                            <div class="col-auto">
+                                <h3>
+                                    @Model.Date.ToString("dd/MM")
+                                </h3>
+                            </div>
+                            <div class="col-auto">
+                                <div class="row">
+                                    <div class="col-auto pr-2">
+                                        <a class="link--no-decoration" asp-action="Index" asp-route-date="@Model.Date.AddDays(-1)">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </a>
+                                    </div>
+                                    <div class="col-auto pl-2">
+                                        <a class="link--no-decoration" asp-action="Index" asp-route-date="@Model.Date.AddDays(1)">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @if (Model.Dailies.Count == 0)
+                        {
+                            <p>No dailies this day.</p>
+                        }
+                        @foreach (var member in Model.Dailies)
+                        {
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row justify-content-between align-items-center">
+                                        <div class="col-auto">
+                                            <h4 class="font-size-sm">
+                                                @member.UserName
+                                            </h4>
+                                        </div>
+                                        <div class="col-auto">
+                                            <div class="quebab-container">
+                                                <i class="fas fa-ellipsis-v font-size-sm" onclick="openQuebabMenu('@member.Id')"></i>
+                                                <div class="box quebab" id="quebab-menu-@member.Id">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <a class="link" asp-action="Delete" asp-route-projectId="@Model.ProjectId" asp-route-dailyId="@member.Id">
+                                                                Delete
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <span class="font-size-sm">
+                                        @member.Content
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .email-tag {
+        background-color: #c4c4c4;
+        border-radius: 4px;
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .email-tag--disabled {
+        opacity: 0.5;
+    }
+
+    .admin-tag {
+        position: absolute;
+        top: -8px;
+        left: 4px;
+        background-color: var(--green);
+        color: #ffd43b;
+        padding: 3px;
+        border-radius: 50px;
+    }
+</style>

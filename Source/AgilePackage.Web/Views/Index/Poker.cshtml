@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Planning Poker - Agile Package";
+    ViewData["Description"] = "Vote user stories with your remote team, for free.";
+    var votes = new Dictionary<string, int>
+    {
+        { "Leonardo", 1 },
+        { "John", 2 },
+        { "Maria", 3 },
+        { "Josh", 5 },
+        { "Andre", 8 },
+        { "Zelia", 13 },
+    };
+}
+
+<div class="container">
+    <a href="/" class="link-text-decoration-none">
+        <h1 class="font-special margin-bottom-5">
+            Agile Package
+        </h1>
+    </a>
+    <h2 id="poker-page-title" class="font-special font-weight-normal font-size-xxg margin-bottom-2">
+        Vote user stories with your remote team, for free
+    </h2>
+    <a id="poker-page-call-to-action-button" href="https://poker.agilepackage.com" class="btn margin-bottom-4">
+        Try for free
+    </a>
+    <div class="box-vote-container">
+        @foreach (var vote in votes)
+        {
+            <div class="box box--vote">
+                <span class="font-size-md font-weight-normal">
+                    @vote.Key
+                </span>
+                <span class="font-size-xlg">
+                    @vote.Value
+                </span>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .container {
+        max-width: 800px;
+    }
+</style>

@@ -1,0 +1,61 @@
+﻿@model AgilePackage.Web.Models.Contact
+@{
+    ViewData["Title"] = "Contact us - Agile Package";
+    ViewData["Description"] = "Do you need anything? Let Agile Package help you.";
+}
+<div class="container">
+    <div class="row mb-5 mt-2">
+        <div class="col-12">
+            <h1>
+                <a href="/" class="link-text-decoration-none font-special font-size-normal">
+                    Agile Package
+                </a>
+            </h1>
+        </div>
+    </div>
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="font-special font-size-xxg font-weight-normal">
+                Contact us
+            </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="box">
+                <form class="box-content" method="post" action="/contact">
+                    @if (Model.Success.HasValue && Model.Success == true)
+                    {
+                        <p>
+                            Thanks for getting in touch with us. We will return ASAP. 😁
+                        </p>
+                    }
+                    else
+                    {
+                        <div class="form-group form-group--full-width">
+                            <label>Your email</label>
+                            <input type="email" asp-for="Email" />
+                        </div>
+                        <div class="form-group form-group--full-width">
+                            <label>Your message</label>
+                            <textarea rows="10" asp-for="Message"></textarea>
+                        </div>
+                        <div class="form-group form-group--full-width" style="display: none;">
+                            <label>Your city</label>
+                            <input asp-for="City" />
+                        </div>
+                        <div class="form-group form-group--full-width">
+                            <button class="btn btn--full-size" type="submit">Send</button>
+                        </div>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .box-content {
+        margin: 0 auto;
+        max-width: 400px;
+    }
+</style>

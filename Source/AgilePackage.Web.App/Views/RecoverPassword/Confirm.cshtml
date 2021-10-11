@@ -1,0 +1,48 @@
+﻿@model AgilePackage.Web.App.ViewModels.ConfirmPasswordRecoveryDto 
+@{
+    ViewData["Title"] = "Confirm - Password recovery - Agile Package";
+}
+<div class="container">
+    <div class="main">
+        <div class="row justify-content-center mb-3">
+            <div class="col">
+                <h1 class="font-size-xlg font-weight-normal text-align-center font-special">
+                    Confirm your password recovery
+                </h1>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col">
+                <div class="box">
+                    <form method="post">
+                        <div class="form-group form-group--full-width">
+                            <label>Your email</label>
+                            <input type="email" asp-for="Email" disabled required />
+                        </div>
+                        <div class="form-group form-group--full-width">
+                            <label>Your new password</label>
+                            <input type="password" asp-for="Password" id="password" autofocus required />
+                            <div>
+                                <span class="badge badge-secondary" id="password-validator-ui-uppercase">uppercase</span>
+                                <span class="badge badge-secondary" id="password-validator-ui-lowercase">lowercase</span>
+                                <span class="badge badge-secondary" id="password-validator-ui-number">number</span>
+                                <span class="badge badge-secondary" id="password-validator-ui-characters">8 characters</span>
+                            </div>
+                        </div>
+                        <div class="form-group form-group--full-width">
+                            <button class="btn btn--full-width" type="submit">Recover</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .main {
+        max-width: 350px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+</style>
+<script src="~/js/password-validator.js"></script>

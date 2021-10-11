@@ -1,0 +1,53 @@
+﻿@model List<AgilePackage.Web.App.Dtos.RetrospectivesDto>
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
+@{
+    ViewData["Title"] = "Retrospectives - Agile Package";
+    var projectId = ViewContext.RouteData.Values["projectId"].ToString();
+}
+<div class="container">
+    <div class="row justify-content-start mb-2">
+        <div class="col-auto">
+            <p class="font-size-sm">
+                <a asp-controller="Project" asp-action="Index"  class="link--no-decoration"><i class="fas fa-chevron-left"></i> Projects</a>
+            </p>
+        </div>
+    </div>
+    <div class="row justify-content-between mb-3">
+        <div class="col-auto">
+            <h1 class="font-special font-weight-normal font-size-xlg">
+                Retrospectives
+            </h1>
+        </div>
+        <div class="col-auto">
+            <a class="btn" asp-action="Create" asp-route-projectId="@projectId">
+                Create
+            </a>
+        </div>
+    </div>
+    @if (Model.Count() == 0)
+    {
+        <div class="row mb-2">
+            <div class="col-12">
+                No retrospectives yet. <a asp-action="Create" asp-route-projectId="@projectId" class="link">Click here</a> to create one.
+            </div>
+        </div>
+    }
+    @foreach (var retrospective in Model)
+    {
+        <div class="row mb-2">
+            <div class="col-12">
+                <a class="link--no-decoration" asp-action="Details" asp-route-projectId="@projectId" asp-route-retrospectiveId="@retrospective.Id">
+                    <div class="box">
+                        <div class="row justify-content-between">
+                            <div class="col-auto">
+                                <h2 class="font-size-md font-weight-normal">
+                                    @retrospective.Title
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+</div>

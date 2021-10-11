@@ -1,0 +1,48 @@
+﻿@model AgilePackage.Web.App.Dtos.SelectRoomDto;
+@{
+    ViewData["Title"] = "Choose your room - Planning Poker - Agile Package";
+}
+<div class="container">
+    <div class="main">
+        <div class="row justify-content-center mb-3">
+            <div class="col">
+                <h1 class="font-size-xlg font-weight-normal text-align-center font-special">
+                    Hi! Which room
+                    <br />
+                    you want to go?
+                </h1>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col">
+                <div class="box">
+                    <form asp-action="Rooms" method="post">
+                        <div class="form-group form-group--full-width">
+                            <label>agilepackage.com/poker-plannings/</label>
+                            <input id="form-input-room-name" type="text" asp-for="Name" oninput="onChange(event)" autofocus required />
+                        </div>
+                        <p id="room-full-url">
+                            agilepackage.com/poker-plannings/<span id="room-route-url"></span>
+                        </p>
+                        <button class="btn btn--full-width" type="submit">Go to room</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .main {
+        max-width: 350px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+</style>
+
+<script>
+    const onChange = (e) => {
+        const element = document.getElementById("room-route-url")
+        element.innerText = e.target.value
+    }
+</script>

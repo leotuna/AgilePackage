@@ -1,0 +1,77 @@
+﻿@model List<AgilePackage.Web.App.Dtos.InviteDto>
+@{
+    ViewData["Title"] = $"Invites - Agile Package";
+}
+
+<div class="container">
+    <div class="row justify-content-start mb-2">
+        <div class="col-auto">
+            <p class="font-size-sm">
+                <a asp-controller="Project" asp-action="Index" class="link--no-decoration"><i class="fas fa-chevron-left"></i> Projects</a> / Invites
+            </p>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-12 col-md-6">
+            <div class="box">
+                <div class="row mb-1">
+                    <div class="col">
+                        <h3 class="font-size-sm">
+                            Projects that invited you
+                        </h3>
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    @foreach (var invite in Model)
+                    {
+                        <div class="col-auto pr-0 mb-2">
+                            <div class="email-tag">
+                                <div class="d-flex">
+                                    <div class="mr-2">
+                                        @invite.ProjectName
+                                    </div>
+                                    <div>
+                                        <div class="quebab-container">
+                                            <i class="fas fa-ellipsis-v" onclick="openQuebabMenu('@invite.Id')"></i>
+                                            <div class="box quebab" id="quebab-menu-@invite.Id">
+                                                <div class="row mb-2">
+                                                    <div class="col-12">
+                                                        <a class="link" asp-controller="Invite" asp-action="Edit" asp-route-method="accept" asp-route-inviteId="@invite.Id">
+                                                            Accept
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="row mb-2">
+                                                    <div class="col-12">
+                                                        <a class="link" asp-controller="Invite" asp-action="Edit" asp-route-method="refuse" asp-route-inviteId="@invite.Id">
+                                                            Decline
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.Count() == 0)
+                    {
+                        <div class="col">
+                            <p>No invites created yet</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .email-tag {
+        background-color: #c4c4c4;
+        border-radius: 4px;
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+</style>

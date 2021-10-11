@@ -1,0 +1,104 @@
+﻿@model AgilePackage.Web.App.Dtos.ByeDto;
+@{
+    ViewData["Title"] = "Bye - Planning Poker - Agile Package";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-lg-5 mb-3">
+            <div class="box">
+                <div class="row mb-2">
+                    <div class="col">
+                        <h1 class="font-size-xlg font-weight-normal font-special">
+                            You left the room
+                        </h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>
+                            We hope you had a
+                            cool poker planning session
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-5 mb-3">
+            <div class="box">
+                @if (!string.IsNullOrWhiteSpace(Model.Room))
+                {
+                    <div class="row mb-2">
+                        <div class="col">
+                            <a class="link" asp-action="Room" asp-route-room="@Model.Room">
+                                Go back to the same room
+                            </a>
+                        </div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="col">
+                        <a class="link" asp-action="Rooms">
+                            Choose another room
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-5 mb-3">
+            <div class="box">
+                <div class="row mb-3">
+                    <div class="col">
+                        <h2 class="font-size-lg font-special">
+                            Is your team really agile?
+                        </h2>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <h3 class="font-size-lg font-special font-weight-normal">
+                            Agile Package <strong class="font-special">Premium</strong>
+                        </h3>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <ul class="fa-ul">
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span>Daily scrum</li>
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span>Poker planning</li>
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span>Sprint retrospective</li>
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span>Unlimited projects</li>
+                            <li><span class="fa-li"><i class="fas fa-check"></i></span>Unlimited users</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col">
+                        <span class="font-special font-size-lg">
+                            $99/month flat
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <a class="btn" asp-controller="Auth" asp-action="SignUp">
+                            Upgrade
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    html {
+        background-color: var(--green);
+    }
+    .fa-ul {
+        margin-left: 1.5em;
+    }
+    .nav-title {
+        color: #fff;
+    }
+</style>

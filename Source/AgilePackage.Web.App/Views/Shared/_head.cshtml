@@ -1,0 +1,58 @@
+﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment env
+@{
+    string userId = string.Empty;
+
+    if (User.Identity is not null && User.Identity.IsAuthenticated)
+    {
+        var subclaim = User.Claims.FirstOrDefault(x => x.Type.Equals(System.Security.Claims.ClaimTypes.NameIdentifier));
+        if (subclaim is not null)
+        {
+            if (Guid.TryParse(subclaim.Value, out Guid _userId))
+            {
+                userId = _userId.ToString();
+            }
+        }
+    }
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>@ViewData["Title"]</title>
+
+    @if (env.EnvironmentName == "Production")
+    {
+        <!-- Google Tag Manager -->
+        <script>
+            dataLayer = [{
+                'userId': '@userId',
+            }];
+
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-5MR922C');
+        </script>
+    }
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- tuna-toast -->
+    <link rel="stylesheet" type="text/css" href="~/lib/tuna-toast/tuna-toast.css" asp-append-version="true">
+
+    <!-- Bootstrap Grid -->
+    <link rel="stylesheet" href="~/lib/bootstrap-grid/bootstrap-grid.min.css" asp-append-version="true" />
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
+
+    <!-- Signal R -->
+    <script src="~/lib/signalr/signalr.3.1.7.js" asp-append-version="true"></script>
+</head>

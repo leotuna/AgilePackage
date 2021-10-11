@@ -1,0 +1,15 @@
+﻿@{
+    var toastSuccess = TempData["ToastSuccess"];
+    var toastError = TempData["ToastError"];
+}
+<script src="~/lib/tuna-toast/tuna-toast.js" asp-append-version="true"></script>
+<script src="~/js/quebab.js" asp-append-version="true"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@if (toastSuccess != null)
+{
+    <script>toast.success("@toastSuccess")</script>
+}
+@if (toastError != null)
+{
+    <script>toast.error("@toastError")</script>
+}

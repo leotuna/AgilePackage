@@ -1,0 +1,341 @@
+﻿:root {
+    --bg: #f8dbd5;
+    --bg-2: #fff;
+    --main: #E16259;
+    --where-blue: #211375;
+    --dark: #040404;
+    --margin: 8px;
+    --success: #07bc0c;
+    --danger: #E74C3C;
+    --green: #006654;
+}
+
+* {
+    font-family: Roboto, Helvetica, sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    background-color: var(--bg);
+}
+
+body {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-y: scroll;
+    color: var(--dark);
+    font-size: 18px;
+}
+
+.box {
+    background-color: var(--bg-2);
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.16),0px 1px 4px rgba(0,0,0,0.16);
+    padding: 16px;
+    border-radius: 12px;
+}
+
+.box--transparent {
+    background-color: transparent;
+}
+
+.font-size-xsm {
+    font-size: 12px;
+}
+
+.font-size-sm {
+    font-size: 14px;
+}
+
+.font-size-md {
+    font-size: 18px;
+}
+
+.font-size-lg {
+    font-size: 24px;
+}
+
+.font-size-xlg {
+    font-size: 36px;
+}
+
+.font-weight-normal {
+    font-weight: normal;
+}
+
+.form-group {
+    font-size: 18px;
+    margin-bottom: calc(2 * var(--margin));
+}
+
+    .form-group label {
+        margin-bottom: var(--margin);
+    }
+
+    .form-group input, textarea, select {
+        display: block;
+        height: 56px;
+        min-width: 250px;
+        border-radius: 12px;
+        background-color: #F2F1EE;
+        background-color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        padding: 15px 16px;
+        font-size: 18px;
+        margin-top: var(--margin);
+    }
+
+        .form-group input:focus, textarea:focus {
+            outline: none;
+            border: 2px solid var(--where-blue);
+        }
+
+.form-group--full-width input, textarea, select {
+    width: 100%;
+}
+
+.btn {
+    cursor: pointer;
+    background-color: var(--where-blue);
+    color: #fff;
+    border-radius: 12px;
+    border: none;
+    height: 56px;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 56px;
+    text-decoration: none;
+    appearance: button;
+    min-width: 120px;
+    text-align: center;
+    padding: 0 16px;
+}
+
+.btn--full-width {
+    width: 100%;
+}
+
+.nav-title {
+    font-family: "EB Garamond", serif;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    color: inherit;
+}
+
+.link {
+    color: var(--where-blue);
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.link--no-decoration {
+    text-decoration: none;
+    color: inherit;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.color--danger {
+    color: var(--danger);
+}
+
+.color--success {
+    color: var(--success);
+}
+
+.no-select {
+    user-select: none;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+.font-special {
+    font-family: "EB Garamond", serif;
+}
+
+.user-photo {
+    background-color: #c4c4c4;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .user-photo a {
+        display: none;
+    }
+
+    .user-photo:hover a {
+        display: block;
+    }
+
+    .user-photo:hover span {
+        display: none;
+    }
+
+.quebab-container {
+    position: relative;
+}
+
+    .quebab-container i {
+        cursor: pointer;
+    }
+
+.quebab {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: none;
+    z-index: 1;
+    font-size: initial;
+    width: max-content;
+}
+
+.quebab-opener {
+    cursor: pointer;
+}
+
+.retrospective-post-user {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.retrospective-post-content {
+    font-size: 14px;
+}
+
+#room-full-url {
+    text-align: center;
+    color: RGB(0,0,0,0.56);
+    font-size: 14px;
+    margin-bottom: var(--margin);
+}
+
+.box--minimal {
+    box-shadow: inset 0px 0px 0px 1px rgb(15 15 15 / 25%);
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 3px;
+}
+
+.box--vote {
+    width: 100%;
+    height: 100px;
+}
+
+.cards {
+    margin-bottom: 92px;
+}
+
+.votator-container {
+    position: fixed;
+    padding: 8px;
+    border-top: 1px solid RGB(0, 0, 0, 0.1);
+    bottom: 0;
+    background-color: var(--bg);
+    z-index: 1;
+    width: 100%;
+    right: auto;
+    left: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    left: 0;
+    right: 0;
+}
+
+.votator {
+    max-width: 800px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.vote {
+    max-width: 75px;
+    width: 100%;
+    min-width: 40px;
+    height: 75px;
+    box-shadow: inset 0px 0px 0px 1px rgba(15, 15, 15, 0.25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.margin-bottom {
+    margin-bottom: var(--margin);
+}
+
+.margin-bottom-2 {
+    margin-bottom: calc(2 * var(--margin));
+}
+
+#votator-reset-button {
+    cursor: pointer;
+}
+
+    #votator-reset-button button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+.padding-right {
+    padding-right: var(--margin);
+}
+
+.padding-right-0 {
+    padding-right: 0;
+}
+
+.padding-left {
+    padding-left: var(--margin);
+}
+
+.margin-right {
+    padding-right: var(--margin);
+}
+
+.badge {
+    display: inline-block;
+    padding: .25em .4em;
+    font-size: 75%;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.badge-secondary {
+    color: #fff;
+    background-color: #6c757d;
+}
+
+.badge-success {
+    color: #fff;
+    background-color: var(--success);
+}
+
+@media (max-width: 320px) {
+    #navbar-title {
+        font-size: 14px;
+    }
+}

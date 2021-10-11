@@ -1,0 +1,108 @@
+﻿@model AgilePackage.Web.App.Dtos.ProjectsDto
+@{
+    ViewData["Title"] = "Projects - Agile Package";
+}
+
+<div class="container">
+    @if (@Model.Invites > 0)
+    {
+        <div class="row mb-5">
+            <div class="col-12">
+                <a class="link--no-decoration" asp-controller="Invite" asp-action="Index">
+                    <div class="box">
+                        <div class="row justify-content-between">
+                            <div class="col-auto">
+                                You have some invites
+                            </div>
+                            <div class="col-auto">
+                                <span id="invite-counter">
+                                    @Model.Invites
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+    <div class="row justify-content-between mb-3">
+        <div class="col-auto">
+            <h1 class="font-special font-weight-normal font-size-xlg">
+                Projects
+            </h1>
+        </div>
+        <div class="col-auto">
+            <a class="btn" asp-action="Create">
+                Create
+            </a>
+        </div>
+    </div>
+    @if (Model.Projects.Count() == 0)
+    {
+        <div class="row mb-2">
+            <div class="col-12">
+                No projects yet. <a asp-action="Create" class="link">Click here</a> to create one.
+            </div>
+        </div>
+    }
+    @foreach (var project in Model.Projects)
+    {
+        <div class="row mb-2">
+            <div class="col-12">
+                <div class="box box--project">
+                    <div class="row justify-content-between">
+                        <div class="col-auto">
+                            <h2 class="font-size-md font-weight-normal">
+                                <a class="link" asp-action="Details" asp-route-projectId="@project.Id">
+                                    @project.Name
+                                </a>
+                            </h2>
+                        </div>
+                        <div class="col-auto">
+                            <div class="quebab-container">
+                                <i class="fas fa-ellipsis-h" onclick="openQuebabMenu('@project.Id')"></i>
+                                <div class="box quebab" id="quebab-menu-@project.Id">
+                                    <div class="row mb-2">
+                                        <div class="col-12">
+                                            <a class="link" asp-controller="Daily" asp-action="Index" asp-route-projectId="@project.Id">
+                                                Daily
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <div class="col-12">
+                                            <a class="link" asp-controller="PokerPlanning" asp-action="Room" asp-route-room="@project.Slug">
+                                                Poker
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <a class="link" asp-controller="Retrospective" asp-action="Index" asp-route-projectId="@project.Id">
+                                                Retrospective
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    #invite-counter {
+        background-color: var(--danger);
+        color: white;
+        padding: 4px;
+        border-radius: 4px;
+    }
+
+    .box--project {
+        min-height: 112px;
+    }
+</style>
+

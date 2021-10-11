@@ -1,0 +1,55 @@
+﻿@model AgilePackage.Web.App.ViewModels.SignInDto 
+@{
+    ViewData["Title"] = "Sign in - Agile Package";
+}
+<div class="container">
+    <div class="main">
+        <div class="row justify-content-center mb-3">
+            <div class="col">
+                <h1 class="font-size-xlg font-weight-normal text-align-center font-special">
+                    Sign in to your account
+                </h1>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col">
+                <div class="box">
+                    <form method="post">
+                        <div class="form-group form-group--full-width">
+                            <label>Your email</label>
+                            <input type="email" asp-for="Email" autofocus required />
+                        </div>
+                        <div class="form-group form-group--full-width">
+                            <label>Your password</label>
+                            <input type="password" asp-for="Password" required />
+                        </div>
+                        <div class="form-group form-group--full-width">
+                            <button class="btn btn--full-width" type="submit">Sign in</button>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <a class="link--no-decoration" asp-action="SignUp">
+                                    Create an account
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <a class="link--no-decoration" asp-controller="RecoverPassword" asp-action="Index">
+                                    Forgot your password?
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .main {
+        max-width: 350px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+</style>

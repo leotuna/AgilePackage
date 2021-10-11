@@ -1,0 +1,42 @@
+﻿@model AgilePackage.Web.App.Dtos.CreateRetrospectivePostDto
+@{
+    ViewData["Title"] = "Create - Posts - Retrospectives - Agile Package";
+}
+<div class="container">
+    <div class="row justify-content-start mb-2">
+        <div class="col-auto">
+            <p class="font-size-sm">
+                <a asp-controller="Retrospective" asp-action="Details" asp-route-projectId="@Model.ProjectId" asp-route-retrospectiveId="@Model.RetrospectiveId" class="link--no-decoration"><i class="fas fa-chevron-left"></i> Retrospective</a>
+            </p>
+        </div>
+    </div>
+    <div class="row justify-content-start mb-3">
+        <div class="col-12">
+            @if (Model.Type == AgilePackage.Web.App.Enums.RetrospectiveType.WhatWentWell)
+            {
+                <h1 class="font-special font-weight-normal font-size-xlg">
+                    What went well on this one?
+                </h1>
+            }
+            else if (Model.Type == AgilePackage.Web.App.Enums.RetrospectiveType.WhatWentWrong)
+            {
+                <h1 class="font-special font-weight-normal font-size-xlg">
+                    What went wrong on this one?
+                </h1>
+            }
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-12">
+            <div class="box">
+                <form asp-action="Create" asp-route-projectId="@Model.ProjectId" asp-route-retrospectiveId="@Model.RetrospectiveId" asp-route-well="@(Model.Type == AgilePackage.Web.App.Enums.RetrospectiveType.WhatWentWell)" method="post">
+                    <div class="form-group form-group--full-width">
+                        <label>Your post</label>
+                        <textarea asp-for="Content" autofocus></textarea>
+                    </div>
+                    <button class="btn" type="submit">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,291 @@
+﻿@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+    ViewData["Title"] = "Agile Package - Minimalist tools for Scrum rituals";
+    ViewData["Description"] = "Minimalist tools for Scrum rituals. Planning Poker. Daily. Sprint Retrospective.";
+    var votes = new Dictionary<string, int>
+{
+        { "Leonardo", 1 },
+        { "John", 2 },
+        { "Maria", 3 },
+        { "Josh", 5 },
+        { "Andre", 8 },
+        { "Zelia", 13 },
+    };
+    var baseUrl = Configuration["Urls:App"];
+    var pokerUrl = string.Concat(baseUrl, "/poker-plannings");
+    var signUpUrl = string.Concat(baseUrl, "/sign-up");
+    var signInUrl = string.Concat(baseUrl, "/sign-in");
+}
+
+<div class="container">
+    <section id="init">
+        <div class="row justify-content-between align-content-center mb-5 mt-2">
+            <div class="col-auto">
+                <h1>
+                    <a href="/" class="link-text-decoration-none font-special font-size-normal">
+                        Agile Package
+                    </a>
+                </h1>
+            </div>
+            <div class="col-auto">
+                <a href="@signInUrl" class="link-text-decoration-none font-special font-size-normal">
+                    Sign in
+                </a>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12">
+                <h2 id="poker-page-title" class="font-special font-weight-normal font-size-xxg">
+                    Vote user stories with your remote team, for free
+                </h2>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-12">
+                <a id="poker-page-first-call-to-action-button" href="@pokerUrl" class="btn">
+                    Try for free
+                </a>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="box-vote-container">
+                    @foreach (var vote in votes)
+                    {
+                        <div class="box box--vote">
+                            <span class="font-size-md font-weight-normal">
+                                @vote.Key
+                            </span>
+                            <span class="font-size-xlg">
+                                @vote.Value
+                            </span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="premium">
+        <div class="row mb-2">
+            <div class="col-12">
+                <h2 class="font-special font-size-xxg font-weight-normal">
+                    Agile Package <b class="font-special font-size-xxg">Premium</b>
+                </h2>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col">
+                <h3 class="font-special font-weight-normal font-size-xg">
+                    Also free
+                </h3>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col">
+                <a class="btn" href="@signUpUrl" rel="noreferrer">
+                    Start a free 30 day trial
+                </a>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-12">
+                <p class="font-size-g">
+                    If you want to run your team on Agile Package, this is the plan for you.
+                    Includes <strong>every feature</strong> we offer plus <strong>unlimited projects</strong>,
+                    <strong>unlimited users</strong>, and <strong>no per user fees</strong>.
+                </p>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="box-feature-container">
+                    <div class="box">
+                        <div class="row mb-2">
+                            <div class="col-12 font-size-g text-align-center font-weight-bold">
+                                Unlimited projects
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-align-center">
+                                Create as many projects as you need to keep things organized.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="row mb-2">
+                            <div class="col-12 font-size-g text-align-center font-weight-bold">
+                                Unlimited users
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-align-center">
+                                Invite anyone and everyone. No per seat charges.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="row mb-2">
+                            <div class="col-12 font-size-g text-align-center font-weight-bold">
+                                Real agile software
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-align-center">
+                                No need for another generalist software to manage your team. If you are really agile, we are the best for you.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="row mb-2">
+                            <div class="col-12 font-size-g text-align-center font-weight-bold">
+                                Daily
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-align-center">
+                                Bring you team up to speed with what everybody is working on.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="row mb-2">
+                            <div class="col-12 font-size-g text-align-center font-weight-bold">
+                                Retrospective
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-align-center">
+                                Understand what went well and what went wrong on this sprint.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="row mb-2">
+                            <div class="col-12 font-size-g text-align-center font-weight-bold">
+                                Planning poker
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-align-center">
+                                Vote user stories with your team. Really understand how difficult it is to build that feature.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="separator font-size-md font-special my-5">We also offer</div>
+    </section>
+    <section id="free">
+        <div class="row mb-2">
+            <div class="col-12">
+                <h2 class="font-special font-size-xxg font-weight-normal">
+                    Agile Package Free
+                </h2>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-12">
+                <p class="font-size-g">
+                    Great for teams that are not 100% agile yet.
+                </p>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="box-feature-container">
+                    <div class="box box--disabled">
+                        <div class="row mb-2">
+                            <div class="col-12 font-size-g text-align-center font-weight-bold">
+                                Daily
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-align-center">
+                                Bring you team up to speed with what everybody is working on.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box box--disabled">
+                        <div class="row mb-2">
+                            <div class="col-12 font-size-g text-align-center font-weight-bold">
+                                Retrospective
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-align-center">
+                                Understand what went well and what went wrong on this sprint.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="row mb-2">
+                            <div class="col-12 font-size-g text-align-center font-weight-bold">
+                                Poker planning
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-align-center">
+                                Vote user stories with your team. Really understand how difficult it is to build that feature.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-5 justify-content-center">
+            <div class="col-auto">
+                <a id="poker-page-call-to-action-button" href="@pokerUrl" class="btn">
+                    Try planning poker for free
+                </a>
+            </div>
+        </div>
+        <div class="separator font-size-md font-special my-5"></div>
+    </section>
+    <section id="common-questions">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2 class="font-special font-size-xxg text-align-center font-weight-normal">
+                    Common questions
+                </h2>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-12">
+                <h3 class="font-special font-size-xg text-align-center font-weight-normal">
+                    Do we pay extra for more people?
+                </h3>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12">
+                <p class="text-align-center">
+                    No. Unlike most group software, we don't charge you based on how many users you add. 5 users or 50, the price is the same. This adds up to significant savings as your company grows.
+                </p>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-12">
+                <h3 class="font-special font-size-xg text-align-center font-weight-normal">
+                    Can we cancel at any time?
+                </h3>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12">
+                <p class="text-align-center">
+                    There's no minimum contract for Agile Package — cancel at any time without penalty or hassle.
+                </p>
+            </div>
+        </div>
+        <div class="row mt-5 mb-5">
+            <div class="col-12">
+                <p class="text-align-center">
+                    Do you still have any doubts?
+                    <a href="/contact" class="link">Click here to contact us!</a>
+                </p>
+            </div>
+        </div>
+    </section>
+</div>

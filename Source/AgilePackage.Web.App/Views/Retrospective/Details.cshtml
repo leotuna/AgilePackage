@@ -1,0 +1,302 @@
+﻿@model AgilePackage.Web.App.Dtos.RetrospectiveDto
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration;
+@{
+    ViewData["Title"] = $"{Model.Title} - Retrospectives - Agile Package";
+}
+<div class="container">
+    <div class="row justify-content-start mb-2">
+        <div class="col-auto">
+            <p class="font-size-sm">
+                <a asp-action="Index" asp-route-projectId="@Model.ProjectId" class="link--no-decoration"><i class="fas fa-chevron-left"></i> Retrospectives</a>
+            </p>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-12">
+            <h1 class="font-special font-weight-normal font-size-xlg">
+                @Model.Title
+            </h1>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-12 col-md-6 mb-2">
+            <div class="box">
+                <div class="row justify-content-between mb-1">
+                    <div class="col-auto">
+                        <h3 class="font-size-sm">
+                            What went well
+                        </h3>
+                    </div>
+                    <div class="col-auto">
+                        <a class="link--no-decoration" asp-controller="RetrospectivePost" asp-action="Create" asp-route-projectId="@Model.ProjectId" asp-route-retrospectiveId="@Model.Id" asp-route-well="true">
+                            <i class="fas fa-plus-circle"></i>
+                        </a>
+                    </div>
+                </div>
+                @foreach (var post in Model.WhatWentWell)
+                {
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <div class="row justify-content-between">
+                                <div class="col-auto">
+                                    <span class="retrospective-post-user">
+                                        @post.UserName
+                                    </span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="quebab-container">
+                                        <i class="fas fa-ellipsis-h" onclick="openQuebabMenu('@post.Id')"></i>
+                                        <div class="box quebab" id="quebab-menu-@post.Id">
+                                            <div class="row">
+                                                <div class="col-12 mb-2">
+                                                    <a class="link"
+                                                       asp-controller="RetrospectivePost"
+                                                       asp-action="Delete"
+                                                       asp-route-projectId="@Model.ProjectId"
+                                                       asp-route-retrospectiveId="@Model.Id"
+                                                       asp-route-retrospectivePostId="@post.Id">
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <a class="link"
+                                                       asp-controller="RetrospectivePost"
+                                                       asp-action="Edit"
+                                                       asp-route-projectId="@Model.ProjectId"
+                                                       asp-route-retrospectiveId="@Model.Id"
+                                                       asp-route-retrospectivePostId="@post.Id">
+                                                        Edit
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <span class="retrospective-post-content">
+                                        @post.Content
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <span class="retrospective-post-content">
+                                        @if (post.UserHasVoted == true)
+                                        {
+                                            <i id="retrospective-post-votator-@post.Id"
+                                               class="fas fa-heart"
+                                               onclick="client.vote('@post.Id')"></i>
+                                        }
+                                        else
+                                        {
+                                            <i id="retrospective-post-votator-@post.Id"
+                                               class="far fa-heart"
+                                               onclick="client.vote('@post.Id')"></i>
+                                        }
+                                        <span id="retrospective-post-vote-count-@post.Id">
+                                            @post.Votes
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-12 col-md-6 mb-2">
+            <div class="box">
+                <div class="row justify-content-between mb-1">
+                    <div class="col-auto">
+                        <h3 class="font-size-sm">
+                            What went wrong
+                        </h3>
+                    </div>
+                    <div class="col-auto">
+                        <a class="link--no-decoration" asp-controller="RetrospectivePost" asp-action="Create" asp-route-projectId="@Model.ProjectId" asp-route-retrospectiveId="@Model.Id" asp-route-well="false">
+                            <i class="fas fa-plus-circle"></i>
+                        </a>
+                    </div>
+                </div>
+                @foreach (var post in Model.WhatWentWrong)
+                {
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <div class="row justify-content-between">
+                                <div class="col-auto">
+                                    <span class="retrospective-post-user">
+                                        @post.UserName
+                                    </span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="quebab-container">
+                                        <i class="fas fa-ellipsis-h" onclick="openQuebabMenu('@post.Id')"></i>
+                                        <div class="box quebab" id="quebab-menu-@post.Id">
+                                            <div class="row">
+                                                <div class="col-12 mb-2">
+                                                    <a class="link"
+                                                       asp-controller="RetrospectivePost"
+                                                       asp-action="Delete"
+                                                       asp-route-projectId="@Model.ProjectId"
+                                                       asp-route-retrospectiveId="@Model.Id"
+                                                       asp-route-retrospectivePostId="@post.Id">
+                                                        Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <a class="link"
+                                                       asp-controller="RetrospectivePost"
+                                                       asp-action="Edit"
+                                                       asp-route-projectId="@Model.ProjectId"
+                                                       asp-route-retrospectiveId="@Model.Id"
+                                                       asp-route-retrospectivePostId="@post.Id">
+                                                        Edit
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <span class="retrospective-post-content">
+                                        @post.Content
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <span class="retrospective-post-content">
+                                        @if (post.UserHasVoted == true)
+                                        {
+                                            <i id="retrospective-post-votator-@post.Id"
+                                               class="fas fa-heart"
+                                               onclick="client.vote('@post.Id')"></i>
+                                        }
+                                        else
+                                        {
+                                            <i id="retrospective-post-votator-@post.Id"
+                                               class="far fa-heart"
+                                               onclick="client.vote('@post.Id')"></i>
+                                        }
+                                        <span id="retrospective-post-vote-count-@post.Id">
+                                            @post.Votes
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    class RetrospectiveWebSocketClient {
+        constructor() {
+            this.mount();
+        }
+
+        votes = [];
+
+        connection = undefined;
+
+        mount() {
+            const baseUrl = window.location.origin;
+            if (!baseUrl) {
+                throw new Error();
+            }
+
+            const url = `${baseUrl}/signalr/retrospective`;
+
+            this.connection = new signalR.HubConnectionBuilder().withUrl(url).build();
+
+            this.connection.on("Vote", (retrospectivePostId, voteCount) => {
+                const element = document.querySelector(`#retrospective-post-vote-count-${retrospectivePostId}`);
+                element.innerHTML = new Number(voteCount);
+            });
+
+            this.connection.on("Reset", (votes) => {
+                this.votes = votes;
+            });
+
+            this.connection.start().then(() => {
+                this.connection.invoke("EnterInGroup", "@Model.Id");
+            }).catch((err) => {
+                this.error = true;
+            });
+        }
+
+        vote(retrospectivePostId) {
+            this.connection.invoke("Vote", retrospectivePostId);
+            const element = document.querySelector(`#retrospective-post-votator-${retrospectivePostId}`);
+            if (!element) {
+                return;
+            }
+            if (element.className === "fas fa-heart") {
+                element.className = "far fa-heart";
+            } else {
+                element.className = "fas fa-heart";
+            }
+        }
+
+        writeCardsToScreen() {
+            const element = document.getElementById("cards-container");
+
+            const elements = this.votes.map(vote => {
+
+                let result = "";
+
+                const canShowVotes = this.verifyVotes()
+
+                if (canShowVotes) {
+                    result = vote.vote ? vote.vote : "?"
+                } else {
+                    result = vote.vote ? "<i class='fas fa-check color--success'></i>" : "<i class='fas fa-question'></i>"
+                }
+
+                return (
+                    `<div class="col-lg-3 col-md-4 col-sm-6 col-6 d-flex justify-content-center mb-5">
+                        <div class="box box--vote">
+                            <div class="container">
+                                <div class="row justify-content-center mb-1">
+                                    <div class="col-auto">
+                                        <h3 class="font-size-md font-weight-normal">
+                                            ${vote.name}
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-auto">
+                                        <p class="font-size-xlg">
+                                            ${result}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
+                );
+            });
+
+            const child = elements.join("");
+
+            element.innerHTML = child;
+        }
+    }
+
+    const client = new RetrospectiveWebSocketClient();
+</script>
+<style>
+    .fa-heart {
+        cursor: pointer;
+    }
+</style>
